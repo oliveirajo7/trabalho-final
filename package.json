@@ -1,0 +1,26 @@
+{
+  "name": "trabalho-final",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliveirajo7/trabalho-final.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliveirajo7/trabalho-final/issues"
+  },
+  "homepage": "https://github.com/oliveirajo7/trabalho-final#readme",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "express": "^5.1.0",
+    "prisma": "^6.16.2"
+  }
+}
