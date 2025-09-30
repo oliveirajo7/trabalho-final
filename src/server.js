@@ -1,14 +1,15 @@
 import express from "express";
-import userRoute from "./routes/user.js";
+
+//Importando rotas
+import authRoute from "./routes/auth.js";
 import bookRoute from "./routes/books.js";
-import verifyUser from "./middleware/verify-user.js";
 
 const app = express();
 app.use(express.json());
 
-// Rotas
-app.use("/users", verifyUser, userRoute);
-app.use("/books", verifyUser, bookRoute);
+// Definindo rotas
+app.use("/auth", authRoute);
+app.use("/books", bookRoute);
 
 app.listen(3000, () => {
     console.log("Servidor rodando na porta 3000");
