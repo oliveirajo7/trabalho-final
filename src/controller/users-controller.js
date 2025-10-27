@@ -10,17 +10,16 @@ async function criarUsuario (req, res) {
     }
 
     try {
-        const user = await prisma.user.create({
+        const newUser = await prisma.user.create({
             data: {
                 username: username,
                 password: password
             }
         });
-        res.status(201).json({ message: "Usuário criado com sucesso", id: user.id });
+        res.status(201).json({ message: "Usuário criado com sucesso", id: newUser.id });
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Erro ao criar usuário" });
+        res.status(500).json({ message: "Erro ao criar usuário", error });
     }
 };
 
