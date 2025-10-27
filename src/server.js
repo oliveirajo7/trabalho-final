@@ -11,6 +11,4 @@ app.use(express.json());
 app.use("/auth", authRoute);
 app.use("/books", bookRoute);
 
-app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3000");
-});
+app.listen(3000)

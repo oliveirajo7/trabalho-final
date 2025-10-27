@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { criarUsuario } from "../controller/user-controller.js";
+import Router from "express";
+import { criarUsuario } from "../controller/users-controller.js";
 
 const authRouter = Router();
 

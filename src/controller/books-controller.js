@@ -8,7 +8,7 @@ export async function listarTodosLivros(req, res) {
         const livros_do_banco = await prisma.books.findMany();
         res.status(200).json(livros_do_banco);
     } catch (error) {
-        res.status(500).json({ message: "Erro listar todos os livros"});
+        res.status(500).json({ message: "Erro listar todos os livros", error});
     }
 }
 
@@ -36,6 +36,7 @@ export async function buscarLivroPorId(req, res) {
 
 export async function pegarLivroEmprestado(req, res) {
     const id = parseInt(req.params.id);
+    
     const { available } = req.body;
 
    if (isNaN(id)){
@@ -52,8 +53,20 @@ export async function pegarLivroEmprestado(req, res) {
 
     try {
 
+        const livro = await prisma.books.findUnique({ where: { id } });
+
+        if (!livro) {
+          return res.status(404).json({ message: "Livro não existe" });
+        }
+    
+        if (livro.available === false) {
+          return res
+            .status(400)
+            .json({ message: "Esse livro já está emprestado" });
+        }
+
         await prisma.books.update({
-            where: { id: id },
+            where: { id }, 
             data: {
                 available: available
             }
@@ -67,6 +80,7 @@ export async function pegarLivroEmprestado(req, res) {
 
 export async function devolverLivro(req, res) {
     const id = parseInt(req.params.id);
+    const { available } = req.body;
 
     if (!req.body || typeof req.body.available !== "boolean" || req.body.available === false) {
         return res
@@ -80,12 +94,16 @@ export async function devolverLivro(req, res) {
         .json({message: "ID inválido, deve ser um número"});
     }
 
-    const { available } = req.body;
-
     try {
 
+        const livro = await prisma.books.findUnique({ where: { id } });
+
+        if (!livro) {
+          return res.status(404).json({ message: "Livro não existe" });
+        }
+     
         await prisma.books.update({
-            where: { id: id },
+            where: { id },
             data: {
                 available: available
             }
@@ -98,9 +116,6 @@ export async function devolverLivro(req, res) {
 }
 
 
-
-
-//Funcoes que usam o autenticar sem o usuario existir e o typeUser
 export async function criarLivros (req, res) {
     const { title, author } = req.body;
 
@@ -146,11 +161,11 @@ export async function atualizarLivro (req, res) {
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Erro atualizar livro" });
+        res.status(500).json({ message: "Erro atualizar livro", error });
     }
 };
 
-//deletar livro
+
 export async function deletarLivro (req, res) {
     const id = parseInt(req.params.id);
     if (isNaN(id)){
@@ -165,6 +180,6 @@ export async function deletarLivro (req, res) {
         res.status(200).json({ message: "Livro deletado com sucesso" });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Erro deletar livro" });
+        res.status(500).json({ message: "Erro deletar livro", error });
     }
 };

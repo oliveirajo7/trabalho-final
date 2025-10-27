@@ -1,8 +1,8 @@
-import { Router } from "express";
+import Router from "express";
 
 import { 
     listarTodosLivros, buscarLivroPorId, pegarLivroEmprestado, devolverLivro, criarLivros, atualizarLivro, deletarLivro
-} from "../controller/book-controller.js";
+} from "../controller/books-controller.js";
 
 import { verifyUser } from "../middlewares/auth.js";
 import { verifyTypeUser } from "../middlewares/admin.js";
