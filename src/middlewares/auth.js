@@ -45,8 +45,8 @@ export async function verifyUser(req,res,next) {
             req.user = user; // guarda o usuário logado no request
            next();
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: "Erro interno no servidor" });
+
+            res.status(500).json({ message: "Erro interno no servidor", error });
+
         }
-    
 };

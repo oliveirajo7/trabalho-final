@@ -51,7 +51,6 @@ export async function verifyTypeUser(req,res,next) {
             next();
 
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: "Erro interno no servidor" });
+            res.status(500).json({ message: "Erro interno no servidor", error });
         }
 }

@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-    
+
 const prisma = new PrismaClient();
 
 async function criarUsuario (req, res) {
+
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -13,7 +14,6 @@ async function criarUsuario (req, res) {
         return res.status(400).json({ message: "A senha deve ter no mínimo 4 caracteres" });
       }
       
-
     try {
         const existingUser = await prisma.user.findUnique({
             where: { username },
@@ -45,7 +45,9 @@ async function criarUsuario (req, res) {
         });
 
     } catch (error) {
+
         res.status(500).json({ message: "Erro ao criar usuário", error });
+
     }
 };
 
